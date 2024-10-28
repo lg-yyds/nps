@@ -1,3 +1,4 @@
+#
 name: Release
 
 on:
@@ -141,7 +142,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push nps
+    - name: Build 和 push nps
       uses: docker/build-push-action@v2
       with:
         context: .
@@ -151,7 +152,7 @@ jobs:
         tags: |
           ${{ secrets.DOCKERHUB_USERNAME }}/nps:latest
           ${{ secrets.DOCKERHUB_USERNAME }}/nps:${{ env.RELEASE_VERSION }}
-    - name: Build and push npc
+    - name: Build 和 push npc
       uses: docker/build-push-action@v2
       with:
         context: .
