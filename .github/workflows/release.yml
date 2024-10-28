@@ -1,9 +1,9 @@
 #
 name: Release
 on:
-  push:
-    branches:
-      - master
+  #push:
+    #branches:
+      #- master
   workflow_dispatch:
   release:
     types: [published]
@@ -25,7 +25,7 @@ jobs:
       uses: actions/checkout@v2
     - name: Get dependencies
       run: |
-        go install ./...
+        RUN go mod tidy && go mod download
         if [ -f Gopkg.toml ]; then
             curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
             dep ensure
