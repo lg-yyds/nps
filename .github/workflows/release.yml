@@ -42,8 +42,8 @@ jobs:
     - name: Get current date and time for tag
       id: get_date
       run: |
-          # 获取当前日期和时间，格式为 yyyymmddHHMMSS
-          TAG_DATE=$(date +'%Y%m%d%H%M%S')
+          # 获取当前日期，格式为 yyyymmdd
+          TAG_DATE=$(date +'%Y%m%d')
           echo "TAG_DATE=$TAG_DATE" >> $GITHUB_ENV
 
     - name: Create new tag
