@@ -34,15 +34,28 @@ jobs:
       run: |
         chmod +x build.assets.sh
         ./build.assets.sh
-    - name: Generate timestamp
-      id: generate_timestamp
-      run: echo "CURRENT_TIMESTAMP=$(date +'%Y%m%d%H%M%S')" >> $GITHUB_ENV  # 生成当前时间戳
+    - name: Set up Git
+      run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+    - name: Get current date and time for tag
+      id: get_date
+      run: |
+          # 获取当前日期和时间，格式为 yyyymmddHHMMSS
+          TAG_DATE=$(date +'%Y%m%d%H%M%S')
+          echo "TAG_DATE=$TAG_DATE" >> $GITHUB_ENV
+
+    - name: Create new tag
+      run: |
+          # 使用当前日期时间作为标签名
+          git tag $TAG_DATE
+          git push origin $TAG_DATE
 
     - name: Upload
       uses: softprops/action-gh-release@v1
-      if: startsWith(github.ref, 'refs/tags/')  # 仅在标签推送时执行
       with:
-          tag_name: ${{ env.CURRENT_TIMESTAMP }}  # 使用时间戳作为标签
+          tag_name: ${{ env.TAG_DATE }}  # 使用生成的时间戳作为标签
           files: |
             freebsd_386_client.tar.gz
             freebsd_386_server.tar.gz
