@@ -8,9 +8,9 @@ env GOOS=windows GOARCH=386 CGO_ENABLED=1 CC=i686-w64-mingw32-gcc go build -ldfl
 env GOOS=linux GOARCH=386 CGO_ENABLED=1 CC=gcc go build -ldflags "-s -w -extldflags -static -extldflags -static" -buildmode=c-shared -o npc_sdk.so cmd/npc/sdk.go
 tar -czvf npc_sdk.tar.gz npc_sdk.dll npc_sdk.so npc_sdk.h
 
-wget https://github.com/upx/upx/releases/download/v3.95/upx-3.95-amd64_linux.tar.xz
-tar -xvf upx-3.95-amd64_linux.tar.xz
-cp upx-3.95-amd64_linux/upx ./
+wget https://github.com/upx/upx/releases/download/v4.2.4/upx-4.2.4-amd64_linux.tar.xz
+tar -xvf upx-4.2.4-amd64_linux.tar.xz
+cp upx-4.2.4-amd64_linux/upx ./
 
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-s -w -extldflags -static -extldflags -static"  ./cmd/npc/npc.go
 tar -czvf linux_amd64_client.tar.gz npc conf/npc.conf conf/multi_account.conf
